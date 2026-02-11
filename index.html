@@ -3,165 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | shuweb</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>Gorgeous | shuweb</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #6366f1;
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
+            --gold: #d4af37;
+            --dark-gold: #996515;
+            --bg-black: #050505;
+            --accent: #ff3c00;
         }
 
         body {
             margin: 0;
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
+            font-family: 'Noto Serif JP', serif;
+            background-color: var(--bg-black);
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        /* 背景のアニメーション */
-        .bg-gradient {
+        /* 絢爛な背景アニメーション */
+        .gold-particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 100%);
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
             z-index: -1;
+        }
+
+        .gold-particles::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.2;
+            animation: move 20s linear infinite;
+        }
+
+        @keyframes move {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
         }
 
         /* ヒーローセクション */
         .hero {
-            height: 60vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
         .hero h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 4rem;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
             margin: 0;
-            background: linear-gradient(90deg, #818cf8, #c084fc);
+            background: linear-gradient(to bottom, #fff8e1 20%, #d4af37 50%, #8a6d3b 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #94a3b8;
+        .hero .subtitle {
+            font-size: 1.5rem;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-top: 10px;
+            text-transform: uppercase;
         }
 
-        /* コンテンツエリア */
+        /* 装飾ライン */
+        .divider {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 20px 0;
+        }
+
+        /* コンテンツ */
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            max-width: 900px;
+            margin: -100px auto 100px;
+            padding: 0 20px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s ease;
+        .luxury-card {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--dark-gold);
+            padding: 40px;
+            border-radius: 0; /* あえて角を立てる和の美学 */
+            position: relative;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        /* 四隅の飾り金 */
+        .luxury-card::before, .luxury-card::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
         }
+        .luxury-card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .luxury-card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
         h2 {
-            border-left: 4px solid var(--primary-color);
-            padding-left: 15px;
-            margin-bottom: 20px;
+            color: var(--gold);
+            font-size: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--dark-gold);
+            padding-bottom: 10px;
         }
 
-        /* スキルバッジ */
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-badge {
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        /* リンクボタン */
-        .links {
-            display: flex;
-            justify-content: center;
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 20px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
-        .btn {
+        .skill-item {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .skill-item i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
             text-decoration: none;
-            color: white;
-            background: var(--primary-color);
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: opacity 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            transition: all 0.4s;
         }
 
-        .btn:hover {
-            opacity: 0.8;
+        .btn-gold:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold);
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            font-size: 0.8rem;
-            color: #64748b;
+            padding: 50px;
+            color: var(--dark-gold);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-<div class="bg-gradient"></div>
+<div class="gold-particles"></div>
 
 <section class="hero">
-    <h1>Hello, Dockerテスト</h1>
-    <p>Welcome to my personal website "shuweb"</p>
+    <h1>SHUWEB</h1>
+    <div class="divider"></div>
+    <p class="subtitle">Architect of Docker & Ubuntu</p>
 </section>
 
 <div class="container">
-    <div class="card">
-        <h2>About Me</h2>
-        <p>Ubuntuサーバーを構築して、Dockerで自分のWebサイトを公開しています！</p>
-    </div>
+    <div class="luxury-card">
+        <h2>此処に記す</h2>
+        <p style="text-align: center; line-height: 2;">
+            漆黒のサーバーに命を吹き込み、Dockerという名の器にて<br>
+            至高のウェブサイトを構築せり。<br>
+            GitHubより来る風を受け、この城は常に進化を続ける。
+        </p>
 
-    <div class="card">
-        <h2>Skills</h2>
-        <div class="skills">
-            <span class="skill-badge"><i class="fab fa-ubuntu"></i> Ubuntu</span>
-            <span class="skill-badge"><i class="fab fa-docker"></i> Docker</span>
-            <span class="skill-badge"><i class="fab fa-git-alt"></i> Git/GitHub</span>
-            <span class="skill-badge"><i class="fab fa-html5"></i> HTML/CSS</span>
-            <span class="skill-badge"><i class="fab fa-php"></i> PHP</span>
+        <div class="skill-grid">
+            <div class="skill-item"><i class="fab fa-ubuntu"></i>Ubuntu</div>
+            <div class="skill-item"><i class="fab fa-docker"></i>Docker</div>
+            <div class="skill-item"><i class="fab fa-git-alt"></i>Git</div>
+            <div class="skill-item"><i class="fab fa-php"></i>PHP</div>
         </div>
-    </div>
 
-    <div class="links">
-        <a href="https://github.com/shuQvQ" class="btn"><i class="fab fa-github"></i> GitHub</a>
+        <div style="text-align: center;">
+            <a href="https://github.com/shuQvQ" class="btn-gold">拝謁する (GitHub)</a>
+        </div>
     </div>
 </div>
 
 <footer>
-    &copy; 2026 shuweb. Built with passion and Docker.
+    &copy; 2026 SHUWEB. All Rights Reserved.
 </footer>
 
 </body>
