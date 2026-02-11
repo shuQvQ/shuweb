@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shu-portfolio | shuweb</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+JP:wght@400;900&display=swap" rel="stylesheet">
+    <title>shuweb</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -12,7 +12,7 @@
             --gold: #d4af37;
             --dark-gold: #996515;
             --bg-black: #050505;
-            --overlay-bg: rgba(5, 5, 5, 0.97);
+            --accent: #ff3c00;
         }
 
         body {
@@ -23,38 +23,40 @@
             overflow-x: hidden;
         }
 
-        /* 背景：黄金粒子アニメーション */
+        /* 背景アニメーション */
         .gold-particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
             z-index: -1;
         }
+
         .gold-particles::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(var(--gold) 1px, transparent 1px);
             background-size: 50px 50px;
-            opacity: 0.15;
+            opacity: 0.2;
             animation: move 20s linear infinite;
         }
+
         @keyframes move {
             from { background-position: 0 0; }
             to { background-position: 500px 1000px; }
         }
 
-        /* ハンバーガーメニューボタン (ぬるっと動く) */
+        /* ハンバーガーメニューボタン (ぬるっと動く新デザイン) */
         .menu-btn {
             position: fixed;
-            top: 25px;
-            right: 25px;
+            top: 20px;
+            right: 20px;
             z-index: 1000;
             cursor: pointer;
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border: 1px solid var(--gold);
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.6);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -63,8 +65,9 @@
         .menu-btn:hover { box-shadow: 0 0 15px var(--gold); }
 
         .bar-container {
-            width: 28px;
-            height: 20px;
+            width: 25px;
+            height: 18px;
+            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -74,18 +77,17 @@
             width: 100%;
             height: 2px;
             background-color: var(--gold);
-            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6); /* ぬるっと動くイージング */
+            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
         }
-        /* ×印への変形 */
-        .menu-btn.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
-        .menu-btn.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        .menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* 全画面オーバーレイメニュー */
+        /* 全画面オーバーレイ */
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--overlay-bg);
+            background: rgba(5, 5, 5, 0.95);
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -93,82 +95,141 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: 0.5s ease;
+            transition: 0.5s;
         }
         .overlay.active { opacity: 1; visibility: visible; }
-
-        .app-list {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-        }
-        .app-item { margin: 35px 0; opacity: 0; transform: translateY(20px); transition: 0.5s; }
-        .overlay.active .app-item { opacity: 1; transform: translateY(0); }
-        /* 各アイテムにディレイをかけて順次表示 */
-        .app-item:nth-child(1) { transition-delay: 0.2s; }
-        .app-item:nth-child(2) { transition-delay: 0.3s; }
-        .app-item:nth-child(3) { transition-delay: 0.4s; }
-
+        .app-list { list-style: none; padding: 0; text-align: center; }
+        .app-item { margin: 25px 0; }
         .app-link {
             font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: var(--gold);
             text-decoration: none;
-            letter-spacing: 0.1em;
             transition: 0.3s;
+            display: block;
         }
-        .app-link:hover {
-            letter-spacing: 0.3em;
-            text-shadow: 0 0 20px var(--gold);
-        }
-        .app-desc { color: #888; font-size: 0.9rem; margin-top: 8px; font-family: 'Noto Serif JP', serif; }
+        .app-link:hover { letter-spacing: 0.2em; text-shadow: 0 0 15px var(--gold); }
+        .app-desc { color: #64748b; font-size: 0.8rem; margin-top: 5px; }
 
-        /* メインヒーローセクション */
+        /* ヒーローセクション (復元) */
         .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
+
         .hero h1 {
             font-family: 'Cinzel', serif;
-            font-size: clamp(3rem, 12vw, 7rem);
+            font-size: clamp(3rem, 10vw, 6rem);
             margin: 0;
             background: linear-gradient(to bottom, #fff8e1 20%, #d4af37 50%, #8a6d3b 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
         }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            letter-spacing: 0.5em;
+            color: var(--gold);
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
         .divider {
-            width: 200px;
-            height: 1px;
+            width: 150px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
             margin: 20px 0;
         }
-        .subtitle { font-size: 1.2rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; }
 
-        /* コンテンツエリア */
-        .container { max-width: 800px; margin: -120px auto 100px; padding: 0 20px; }
+        /* コンテンツ (復元) */
+        .container {
+            max-width: 900px;
+            margin: -100px auto 100px;
+            padding: 0 20px;
+        }
+
         .luxury-card {
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(12px);
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--dark-gold);
-            padding: 50px 30px;
+            padding: 40px;
+            border-radius: 0;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
         }
+
         .luxury-card::before, .luxury-card::after {
-            content: ""; position: absolute; width: 30px; height: 30px; border: 2px solid var(--gold);
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
         }
-        .luxury-card::before { top: 15px; left: 15px; border-right: none; border-bottom: none; }
-        .luxury-card::after { bottom: 15px; right: 15px; border-left: none; border-top: none; }
+        .luxury-card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .luxury-card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
-        h2 { color: var(--gold); font-size: 1.8rem; text-align: center; margin-bottom: 30px; letter-spacing: 0.2em; }
-        .info-text { text-align: center; line-height: 2.2; font-size: 1.1rem; margin-bottom: 40px; }
+        h2 {
+            color: var(--gold);
+            font-size: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--dark-gold);
+            padding-bottom: 10px;
+        }
 
-        footer { text-align: center; padding: 60px; color: var(--dark-gold); font-size: 0.8rem; letter-spacing: 0.1em; }
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .skill-item i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            transition: all 0.4s;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: var(--dark-gold);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -186,12 +247,8 @@
 <nav class="overlay" id="menu-overlay">
     <ul class="app-list">
         <li class="app-item">
-            <a href="#" class="app-link">Dashboard</a>
-            <div class="app-desc">サーバー稼働状況の可視化</div>
-        </li>
-        <li class="app-item">
-            <a href="#" class="app-link">PHP App</a>
-            <div class="app-desc">自作PHPアプリケーション</div>
+            <a href="#" class="app-link">Application 01</a>
+            <div class="app-desc">新しく積んでいくアプリの予定地</div>
         </li>
         <li class="app-item">
             <a href="https://github.com/shuQvQ" class="app-link" target="_blank">GitHub</a>
@@ -209,19 +266,21 @@
 <div class="container">
     <div class="luxury-card">
         <h2>About</h2>
-        <div class="info-text">
-            Dockerにて構築せし個人用ポータルサイト。<br>
-            Ubuntuの静寂と、Dockerの柔軟性が織りなす空間。<br>
-            右上の門（メニュー）より、各アプリへ通ず。
+        <p style="text-align: center; line-height: 2;">
+            Dockerにて構築した個人用サイトです<br>
+            Ubuntu > Docker > GitHub<br>
+            thanks for All
+        </p>
+
+        <div class="skill-grid">
+            <div class="skill-item"><i class="fab fa-ubuntu"></i>Ubuntu</div>
+            <div class="skill-item"><i class="fab fa-docker"></i>Docker</div>
+            <div class="skill-item"><i class="fab fa-git-alt"></i>Git</div>
+            <div class="skill-item"><i class="fab fa-php"></i>PHP</div>
         </div>
+
         <div style="text-align: center;">
-            <p style="color: var(--gold); font-size: 0.8rem;">STACKS</p>
-            <div style="font-size: 1.5rem; letter-spacing: 15px;">
-                <i class="fab fa-ubuntu"></i>
-                <i class="fab fa-docker"></i>
-                <i class="fab fa-git-alt"></i>
-                <i class="fab fa-php"></i>
-            </div>
+            <a href="https://github.com/shuQvQ" class="btn-gold">Me! (GitHub)</a>
         </div>
     </div>
 </div>
@@ -234,11 +293,8 @@
     function toggleMenu() {
         const btn = document.getElementById('menu-btn');
         const overlay = document.getElementById('menu-overlay');
-        
         btn.classList.toggle('active');
         overlay.classList.toggle('active');
-
-        // メニューが開いているときはスクロールを禁止
         if (overlay.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
